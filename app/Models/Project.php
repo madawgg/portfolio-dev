@@ -13,6 +13,7 @@ class Project extends Model
 
     protected $fillable = [
         'title',
+        'summary',
         'description',
         'technologies',
         'category',
@@ -39,6 +40,15 @@ class Project extends Model
     {
         // Única fuente del nombre del directorio: la constante del servicio
         return $this->thumbnail ? asset(ThumbnailService::DIRECTORY.'/'.$this->thumbnail) : null;
+    }
+
+    /**
+     * Texto de las tarjetas: la descripción breve si existe;
+     * si no, la completa (recortada visualmente por line-clamp).
+     */
+    public function cardSummary(): string
+    {
+        return $this->summary ?: $this->description;
     }
 
     /** Tecnologías como array (se guardan separadas por comas). */

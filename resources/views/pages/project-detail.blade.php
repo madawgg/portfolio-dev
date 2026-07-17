@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $project->title)
-@section('meta_description', \Illuminate\Support\Str::limit($project->description, 155))
+@section('meta_description', \Illuminate\Support\Str::limit($project->cardSummary(), 155))
 
 @section('content')
     <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20">

@@ -23,8 +23,8 @@
                 <p class="mb-1 font-mono text-xs text-teal-600 dark:text-teal-300">{{ $project->company }}</p>
             @endif
             <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ $project->title }}</h3>
-            {{-- line-clamp corta a 3 líneas con "…" al final; el texto completo vive en la página del proyecto --}}
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-3">{{ \Illuminate\Support\Str::limit($project->description, 400, '…') }}</p>
+            {{-- Descripción breve (o la completa recortada a 3 líneas con "…" si no hay breve) --}}
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-3">{{ \Illuminate\Support\Str::limit($project->cardSummary(), 400, '…') }}</p>
 
             @if ($project->technologyList())
                 <div class="mt-4 flex flex-wrap gap-2">

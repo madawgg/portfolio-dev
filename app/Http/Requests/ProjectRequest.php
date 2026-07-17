@@ -16,6 +16,7 @@ class ProjectRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
+            'summary' => ['nullable', 'string', 'max:300'],
             'description' => ['required', 'string', 'max:6000'],
             'technologies' => ['nullable', 'string', 'max:255'],
             'category' => ['required', 'in:profesional,personal'],
@@ -41,7 +42,8 @@ class ProjectRequest extends FormRequest
     {
         return [
             'title' => 'título',
-            'description' => 'descripción',
+            'summary' => 'descripción breve',
+            'description' => 'descripción completa',
             'technologies' => 'tecnologías',
             'category' => 'categoría',
             'company' => 'empresa',

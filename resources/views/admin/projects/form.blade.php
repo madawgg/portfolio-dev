@@ -15,7 +15,9 @@
 
             <x-form.input label="Título" name="title" :value="$project?->title" required maxlength="255" />
 
-            <x-form.textarea label="Descripción" name="description" :value="$project?->description" rows="8" required maxlength="6000" />
+            <x-form.textarea label="Descripción breve — se muestra en las tarjetas (máx. 300; si la dejas vacía se usa la completa recortada)" name="summary" :value="$project?->summary" rows="3" maxlength="300" />
+
+            <x-form.textarea label="Descripción completa — página del proyecto" name="description" :value="$project?->description" rows="8" required maxlength="6000" />
 
             <div class="grid gap-5 sm:grid-cols-2">
                 <div>
