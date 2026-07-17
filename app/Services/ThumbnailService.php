@@ -59,7 +59,20 @@ class ThumbnailService
         imagepalettetotruecolor($image);
 
         if (imagesx($image) > $maxWidth) {
-            $resized = imagescale($image, $maxWidth, -1, IMG_BICUBIC);
+            // Altura calculada explícitamente e interpolación por defecto:
+            // imagescale con altura -1 + IMG_BICUBIC devuelve false en
+            // algunas builds de GD (p. ej. hosting compartido)
+            $newHeight = (int) round(imagesy($image) * $maxWidth / imagesx($image));
+            $resized = imagescale($image, $maxWidth, max(1, $newHeight));
+
+            if ($resized === false) {
+                imagedestroy($image);
+
+                throw ValidationException::withMessages([
+                    'thumbnail' => 'No se pudo procesar la imagen. Prueba con otra resolución o formato.',
+                ]);
+            }
+
             imagedestroy($image);
             $image = $resized;
         }
