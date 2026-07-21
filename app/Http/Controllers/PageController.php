@@ -33,8 +33,8 @@ class PageController extends Controller
 
         return view('pages.projects', [
             'sections' => [
-                ['title' => 'Proyectos profesionales', 'accent' => 'teal', 'projects' => $projects->where('category', Project::CATEGORY_PROFESSIONAL)],
-                ['title' => 'Proyectos personales', 'accent' => 'emerald', 'projects' => $projects->where('category', Project::CATEGORY_PERSONAL)],
+                ['title' => 'Proyectos profesionales', 'accent' => 'teal', 'anchor' => 'profesionales', 'short' => 'Profesionales', 'projects' => $projects->where('category', Project::CATEGORY_PROFESSIONAL)],
+                ['title' => 'Proyectos personales', 'accent' => 'emerald', 'anchor' => 'personales', 'short' => 'Personales', 'projects' => $projects->where('category', Project::CATEGORY_PERSONAL)],
             ],
         ]);
     }

@@ -9,11 +9,28 @@
             Una selección de los proyectos en los que he trabajado.
         </p>
 
-        @php $hasAny = collect($sections)->contains(fn ($s) => $s['projects']->isNotEmpty()); @endphp
+        @php $nonEmpty = collect($sections)->filter(fn ($s) => $s['projects']->isNotEmpty()); @endphp
 
-        @unless ($hasAny)
+        @if ($nonEmpty->isEmpty())
             <p class="mt-12 text-slate-500">Todavía no hay proyectos publicados. ¡Vuelve pronto!</p>
-        @endunless
+        @endif
+
+        {{-- Submenú de secciones (solo si hay al menos dos con proyectos) --}}
+        @if ($nonEmpty->count() > 1)
+            <nav aria-label="Secciones de esta página"
+                 class="sticky top-16 z-40 -mx-4 mt-6 border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50/90 dark:bg-slate-950/90 px-4 py-2 backdrop-blur sm:-mx-6 sm:px-6">
+                <div class="flex gap-2">
+                    @foreach ($sections as $index => $section)
+                        @if ($section['projects']->isNotEmpty())
+                            <a href="#{{ $section['anchor'] }}"
+                               class="rounded-full border border-slate-300 dark:border-slate-700 px-4 py-1.5 font-mono text-sm text-slate-700 dark:text-slate-300 transition hover:border-emerald-500/50 hover:text-emerald-600 dark:hover:text-emerald-400">
+                                0{{ $index + 1 }}. {{ $section['short'] }}
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
+            </nav>
+        @endif
 
         @php
             // Clases literales completas para que Tailwind las detecte al compilar
@@ -29,7 +46,7 @@
 
         @foreach ($sections as $index => $section)
             @if ($section['projects']->isNotEmpty())
-                <div class="mt-10 rounded-2xl border p-6 sm:p-8 {{ $cardTones[$section['accent']] }}">
+                <div id="{{ $section['anchor'] }}" class="mt-10 scroll-mt-28 rounded-2xl border p-6 sm:p-8 {{ $cardTones[$section['accent']] }}">
                     <h2 class="flex items-center gap-3 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
                         <span class="font-mono {{ $numberTones[$section['accent']] }}">0{{ $index + 1 }}.</span>
                         {{ $section['title'] }}
