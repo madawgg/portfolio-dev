@@ -32,6 +32,10 @@ Route::get('/cv', [CvController::class, 'download'])
     ->middleware('throttle:cv-download')
     ->name('cv.download');
 
+Route::get('/cv/ver', [CvController::class, 'view'])
+    ->middleware('throttle:cv-download')
+    ->name('cv.view');
+
 /*
 |--------------------------------------------------------------------------
 | Autenticación
